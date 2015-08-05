@@ -353,6 +353,10 @@ int Main::onCecKeyPress(const cec_keypress &key) {
 					for (std::list<__u16>::const_iterator ukeys = uinputKeys.begin(); ukeys != uinputKeys.end(); ++ukeys) {
 						__u16 ukey = *ukeys;
 
+						LOG4CPLUS_DEBUG(logger, "send " << ukey);
+
+						uinput.send_event(EV_KEY, ukey, EV_KEY_PRESSED);
+
 						LOG4CPLUS_DEBUG(logger, "repeat " << ukey);
 
 						uinput.send_event(EV_KEY, ukey, EV_KEY_REPEAT);
@@ -378,8 +382,12 @@ int Main::onCecKeyPress(const cec_keypress &key) {
 						__u16 ukey = *ukeys;
 
 						LOG4CPLUS_DEBUG(logger, "send " << ukey);
-
+						
 						uinput.send_event(EV_KEY, ukey, EV_KEY_PRESSED);
+
+						LOG4CPLUS_DEBUG(logger, "release " << ukey);
+						
+						uinput.send_event(EV_KEY, ukey, EV_KEY_RELEASED);
 					}
 					lastUInputKeys = uinputKeys;
 				}
