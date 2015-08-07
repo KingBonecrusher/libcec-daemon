@@ -360,6 +360,8 @@ int Main::onCecKeyPress(const cec_keypress &key) {
 						LOG4CPLUS_DEBUG(logger, "repeat " << ukey);
 
 						uinput.send_event(EV_KEY, ukey, EV_KEY_REPEAT);
+						
+						boost::this_thread::sleep(boost::posix_time::milliseconds(75));
 					}
 				}
 				else
